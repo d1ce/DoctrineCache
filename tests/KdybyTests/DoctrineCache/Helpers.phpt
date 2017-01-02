@@ -27,63 +27,63 @@ class HelpersTest extends Tester\TestCase
 
 	public function dataFilterArgs()
 	{
-		return [
-			[[new Nette\DI\Statement('SplFileInfo')], 'SplFileInfo'],
-			[[['SplFileInfo']], ['SplFileInfo']],
+		return array(
+			array(array(new Nette\DI\Statement('SplFileInfo')), 'SplFileInfo'),
+			array(array(array('SplFileInfo')), array('SplFileInfo')),
 
 			// BC
-			[
-				[new Nette\DI\Statement('SplFileInfo')],
-				(object) ['value' => 'SplFileInfo', 'attributes' => []]
-			],
-			[
-				[[new Nette\DI\Statement('SplFileInfo')]],
-				[(object)['value' => 'SplFileInfo', 'attributes' => []]]
-			],
-			[
-				[[new Nette\DI\Statement('SplFileInfo', [__FILE__])]],
-				[(object)['value' => 'SplFileInfo', 'attributes' => [__FILE__]]]
-			],
-			[
-				[new Nette\DI\Statement('SplFileInfo', [1 => __FILE__])],
-				(object) ['value' => 'SplFileInfo', 'attributes' => ['...', __FILE__]]
-			],
-			[
-				[new Nette\DI\Statement('SplFileInfo', [1 => new Nette\DI\Statement('SplFileInfo')])],
-				(object) ['value' => 'SplFileInfo', 'attributes' => [
+			array(
+				array(new Nette\DI\Statement('SplFileInfo')),
+				(object) array('value' => 'SplFileInfo', 'attributes' => array())
+			),
+			array(
+				array(array(new Nette\DI\Statement('SplFileInfo'))),
+				array((object)array('value' => 'SplFileInfo', 'attributes' => array()))
+			),
+			array(
+				array(array(new Nette\DI\Statement('SplFileInfo', array(__FILE__)))),
+				array((object)array('value' => 'SplFileInfo', 'attributes' => array(__FILE__)))
+			),
+			array(
+				array(new Nette\DI\Statement('SplFileInfo', array(1 => __FILE__))),
+				(object) array('value' => 'SplFileInfo', 'attributes' => array('...', __FILE__))
+			),
+			array(
+				array(new Nette\DI\Statement('SplFileInfo', array(1 => new Nette\DI\Statement('SplFileInfo')))),
+				(object) array('value' => 'SplFileInfo', 'attributes' => array(
 					'...',
-					(object) ['value' => 'SplFileInfo', 'attributes' => []]
-				]]
-			],
+					(object) array('value' => 'SplFileInfo', 'attributes' => array())
+				))
+			),
 
 			// after https://github.com/nette/di/commit/7e4236c896621e910730375094adf79eb6ef6ea4
-			[
-				[new Nette\DI\Statement('SplFileInfo')],
+			array(
+				array(new Nette\DI\Statement('SplFileInfo')),
 				new Nette\DI\Statement('SplFileInfo')
-			],
-			[
-				[new Nette\DI\Statement('SplFileInfo', [__FILE__])],
-				new Nette\DI\Statement('SplFileInfo', [__FILE__])
-			],
-			[
-				[new Nette\DI\Statement('SplFileInfo', [1 => __FILE__])],
-				new Nette\DI\Statement('SplFileInfo', ['...', __FILE__])
-			],
-			[
-				[new Nette\DI\Statement('SplFileInfo')],
+			),
+			array(
+				array(new Nette\DI\Statement('SplFileInfo', array(__FILE__))),
+				new Nette\DI\Statement('SplFileInfo', array(__FILE__))
+			),
+			array(
+				array(new Nette\DI\Statement('SplFileInfo', array(1 => __FILE__))),
+				new Nette\DI\Statement('SplFileInfo', array('...', __FILE__))
+			),
+			array(
+				array(new Nette\DI\Statement('SplFileInfo')),
 				new Nette\DI\Statement('SplFileInfo')
-			],
-			[
-				[new Nette\DI\Statement('SplFileInfo', [__FILE__, new Nette\DI\Statement('SplFileInfo', [1 => __FILE__])])],
-				new Nette\DI\Statement('SplFileInfo', [__FILE__, new Nette\DI\Statement('SplFileInfo', ['...', __FILE__])])
-			],
+			),
+			array(
+				array(new Nette\DI\Statement('SplFileInfo', array(__FILE__, new Nette\DI\Statement('SplFileInfo', array(1 => __FILE__))))),
+				new Nette\DI\Statement('SplFileInfo', array(__FILE__, new Nette\DI\Statement('SplFileInfo', array('...', __FILE__))))
+			),
 
 			// single attribute does not have to be an array
-			[
-				[new Nette\DI\Statement('SplFileInfo', [__FILE__])],
-				(object) ['value' => 'SplFileInfo', 'attributes' => __FILE__]
-			],
-		];
+			array(
+				array(new Nette\DI\Statement('SplFileInfo', array(__FILE__))),
+				(object) array('value' => 'SplFileInfo', 'attributes' => __FILE__)
+			),
+		);
 	}
 
 

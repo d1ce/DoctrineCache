@@ -87,10 +87,10 @@ class Cache extends Doctrine\Common\Cache\CacheProvider
 	protected function doSave($id, $data, $lifeTime = 0)
 	{
 		if ($this->debug !== TRUE) {
-			return $this->doSaveDependingOnFiles($id, $data, [], $lifeTime);
+			return $this->doSaveDependingOnFiles($id, $data, array(), $lifeTime);
 		}
 
-		$files = [];
+		$files = array();
 		if ($data instanceof Doctrine\ORM\Mapping\ClassMetadata) {
 			$files[] = ClassType::from($data->name)->getFileName();
 			foreach ($data->parentClasses as $class) {
@@ -121,7 +121,7 @@ class Cache extends Doctrine\Common\Cache\CacheProvider
 	 */
 	protected function doSaveDependingOnFiles($id, $data, array $files, $lifeTime = 0)
 	{
-		$dp = [NCache::TAGS => ['doctrine'], NCache::FILES => $files];
+		$dp = array(NCache::TAGS => array('doctrine'), NCache::FILES => $files);
 		if ($lifeTime != 0) {
 			$dp[NCache::EXPIRE] = time() + $lifeTime;
 		}
@@ -148,9 +148,9 @@ class Cache extends Doctrine\Common\Cache\CacheProvider
 
 	protected function doFlush()
 	{
-		$this->cache->clean([
-			NCache::TAGS => ['doctrine']
-		]);
+		$this->cache->clean(array(
+			NCache::TAGS => array('doctrine')
+		));
 	}
 
 
@@ -160,13 +160,13 @@ class Cache extends Doctrine\Common\Cache\CacheProvider
 	 */
 	protected function doGetStats()
 	{
-		return [
+		return array(
 			self::STATS_HITS => NULL,
 			self::STATS_MISSES => NULL,
 			self::STATS_UPTIME => NULL,
 			self::STATS_MEMORY_USAGE => NULL,
 			self::STATS_MEMORY_AVAILABLE => NULL,
-		];
+		);
 	}
 
 }
